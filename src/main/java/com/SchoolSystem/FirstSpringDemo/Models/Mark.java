@@ -1,17 +1,18 @@
 package com.SchoolSystem.FirstSpringDemo.Models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class Mark {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     Integer obtainedMarks;
-
     String grade;
+    @ManyToOne
+    @JoinColumn(name ="course_id",referencedColumnName = "id")
+    Course course;
 
     public Integer getId() {
         return id;

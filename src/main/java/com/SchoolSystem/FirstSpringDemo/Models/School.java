@@ -1,18 +1,15 @@
 package com.SchoolSystem.FirstSpringDemo.Models;
-
 import javax.persistence.*;
 import java.util.List;
-
+@Entity
 public class School {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @Column(name="Name_of_School")
     String schoolName;
 
-    @OneToMany
-    @JoinColumn(referencedColumnName = "id")
-    List<Student> studentList;
+
 
     public Integer getId() {
         return id;
@@ -30,11 +27,4 @@ public class School {
         this.schoolName = schoolName;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
 }

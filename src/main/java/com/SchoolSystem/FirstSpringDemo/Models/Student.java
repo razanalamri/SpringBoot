@@ -14,15 +14,12 @@ public class Student  {
     String phoneNumber;
     String email;
 
-    public List<Course> getCourseList() {
-        return courseList;
-    }
+    @ManyToOne
+    @JoinColumn(name= "School_id",referencedColumnName = "id")
+    School school;
 
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
-    }
 
-    List<Course>courseList;
+
 
     public int getId() {
         return id;
