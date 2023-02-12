@@ -14,10 +14,6 @@ public class Student  {
     String phoneNumber;
     String email;
 
-    @ManyToOne
-    @JoinColumn(name= "School_id",referencedColumnName = "id")
-    School school;
-
 
 
 
