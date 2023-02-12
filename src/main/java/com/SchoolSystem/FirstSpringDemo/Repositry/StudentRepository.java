@@ -1,6 +1,5 @@
 package com.SchoolSystem.FirstSpringDemo.Repositry;
 
-import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,4 +17,7 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
 
     @Query(value="SELECT s from Student s where s.id = :id ")
    Student getStudentById(@Param("id")Integer id);
+
+
+
 }

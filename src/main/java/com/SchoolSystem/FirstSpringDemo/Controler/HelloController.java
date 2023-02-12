@@ -11,7 +11,6 @@ import com.SchoolSystem.FirstSpringDemo.Services.StudentServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -78,6 +77,12 @@ public class HelloController {
         Mark mark=markServices.getMarkById(id);
         return mark;
     }
+    @RequestMapping(value = "school/getBySchoolName", method = RequestMethod.GET)
+    public School getBySchoolName(@RequestParam String schoolName){
+        School school=schoolServices.getBySchoolName(schoolName);
+        return school;
+    }
+
 
 
 }

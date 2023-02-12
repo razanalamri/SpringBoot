@@ -2,7 +2,6 @@ package com.SchoolSystem.FirstSpringDemo.Services;
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Repositry.SchoolRepository;
-import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -22,4 +21,8 @@ public class SchoolServices {
         return school;
     }
 
-}
+    public School getBySchoolName(String schoolName){
+        School school= schoolRepository.getBySchoolName(schoolName);
+        return school;
+
+}}
