@@ -30,6 +30,11 @@ public class CourseServices {
             return course;
         }
 
+    public Course getByCourseName(String courseName) {
+        Course course = courseRepository.getByCourseName(courseName);
+        return course;
+    }
+
     public List<Course> getCoursesByStudentName(String studentName){
 
        Student student =studentRepository.getByStudentName(studentName);

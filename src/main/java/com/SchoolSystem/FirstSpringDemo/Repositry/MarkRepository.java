@@ -18,4 +18,10 @@ public interface MarkRepository extends CrudRepository<Mark,Integer> {
 
     @Query(value="SELECT s from Mark s where s.id = :id ")
     Mark getMarkById(@Param("id")Integer id);
+
+    @Query(value = "SELECT s from Mark s WHERE s.course.id = :id ")
+    List<Mark> getMarksByCourseId(@Param("id") Integer id);
+
+
 }
+

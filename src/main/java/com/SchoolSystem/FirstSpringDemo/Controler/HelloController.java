@@ -88,7 +88,11 @@ public class HelloController {
         Student student=studentServices.getByStudentName(studentName);
         return student;
     }
-
+    @RequestMapping(value = "course/getByCourseName", method = RequestMethod.GET)
+    public Course getByCourseName(@RequestParam String courseName){
+        Course course=courseServices.getByCourseName(courseName);
+        return course;
+    }
 
 
     @RequestMapping(value = "student/getStudentsBySchoolName", method = RequestMethod.GET)
@@ -101,6 +105,11 @@ public class HelloController {
     public List<Course> getCoursesByStudentName(@RequestParam String studentName) {
         return courseServices.getCoursesByStudentName(studentName);
 
+    }
+
+    @RequestMapping(value = "mark/getMarksByCourseName", method = RequestMethod.GET)
+    public List<Mark> getMarksByCourseName(@RequestParam String courseName) {
+        return markServices.getMarksByCourseName(courseName);
     }
 
 
