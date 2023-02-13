@@ -14,6 +14,9 @@ public class Student  {
     String phoneNumber;
     String email;
 
+    @ManyToOne
+    @JoinColumn(name = "school_id", referencedColumnName = "id")
+    School school;
 
 
 

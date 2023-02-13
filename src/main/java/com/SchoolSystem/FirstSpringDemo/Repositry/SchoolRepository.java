@@ -20,6 +20,8 @@ public interface SchoolRepository extends CrudRepository<School,Integer> {
 
     @Query(value="SELECT s from School s where s.schoolName = :schoolName")
     School getBySchoolName(@Param("schoolName")String name_of_school);
+
+
 }
 
 
