@@ -19,7 +19,12 @@ public class StudentServices {
         return studentRepository.getAllStudent();
     }
 
-    public Student getStudentById(Integer id){
+    public Student getByStudentName(String studentName) {
+        Student student = studentRepository.getByStudentName(studentName);
+        return student;
+    }
+
+        public Student getStudentById(Integer id){
         Student student= studentRepository.getStudentById(id);
         return student;
     }
