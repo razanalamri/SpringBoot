@@ -1,6 +1,6 @@
 package com.SchoolSystem.FirstSpringDemo.Repositry;
-
 import com.SchoolSystem.FirstSpringDemo.Models.School;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -28,6 +28,15 @@ public interface SchoolRepository extends CrudRepository<School,Integer> {
     @Query(value="SELECT s from School s where s.id=(select MAX(s.id) from School s)")
     List<School> getLatestRow();
 
+
+
+    @Query(value="UPDATE School s set s.isActive=:False where s.id = id ")
+    School deleteId(@Param("id")Integer id);
+
+
+
+    @Query("UPDATE School s set s.isActive=False")
+    List<School> deleteAllSchools();
 
 }
 

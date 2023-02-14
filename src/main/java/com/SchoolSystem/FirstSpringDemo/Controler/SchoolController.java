@@ -20,7 +20,6 @@ public class SchoolController {
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<School> getAllSchools(){
-
         List<School> schools = schoolServices.getAllSchools();
         return schools;
     }
@@ -49,6 +48,17 @@ public class SchoolController {
     @RequestMapping(value = "getLatestRow", method = RequestMethod.GET)
     public List<School> getLatestRow(){
         List <School> schools = schoolServices.getLatestRow();
+        return schools;
+    }
+    @RequestMapping(value = "deleteId", method = RequestMethod.GET)
+    public School deleteId(@RequestParam Integer id){
+        School school=schoolServices.deleteId(id);
+        return school;
+    }
+
+    @RequestMapping(value = "deleteAll", method = RequestMethod.GET)
+    public List<School> deleteAll(){
+        List<School> schools = schoolServices.deleteAllSchools();
         return schools;
     }
 
