@@ -27,4 +27,6 @@ public class School extends BaseEntity {
         this.schoolName = schoolName;
     }
 
+
+
 }

@@ -29,5 +29,7 @@ public class SchoolServices {
     public List<School> getAllActive(){return schoolRepository.getAllActive();}
 
     public List<School> getAllInActive(){return schoolRepository.getAllInActive();}
+    public List<School> getLatestRow(){return schoolRepository.getLatestRow();}
+
 
 }
