@@ -1,8 +1,6 @@
 package com.SchoolSystem.FirstSpringDemo.Repositry;
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
-import com.SchoolSystem.FirstSpringDemo.Models.Student;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,7 +19,8 @@ public interface SchoolRepository extends CrudRepository<School,Integer> {
     @Query(value="SELECT s from School s where s.schoolName = :schoolName")
     School getBySchoolName(@Param("schoolName")String name_of_school);
 
-
+    @Query(value="SELECT s from School s where s.isActive =True")
+    List<School> getAllActive();
 }
 
 

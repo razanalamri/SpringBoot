@@ -1,9 +1,11 @@
 package com.SchoolSystem.FirstSpringDemo.Models;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+
 import javax.persistence.*;
 
 @Entity
-public class Mark {
+public class Mark extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

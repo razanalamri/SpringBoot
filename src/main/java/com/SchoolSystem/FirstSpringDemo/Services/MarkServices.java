@@ -38,14 +38,14 @@ public class MarkServices {
         public Mark getMarkById(Integer id) {
                 Mark mark = markRepository.getMarkById(id);
                 return mark;
-
-        }
-                public List<Mark> getMarksByCourseName(String courseName){
-                        Course course = courseRepository.getByCourseName(courseName);
-                        Integer courseId = course.getId();
-                        List<Mark> marks = markRepository.getMarksByCourseId(courseId);
-                        return marks;
-                }}
+        }}
+//        }
+//                public List<Mark> getMarksByCourseName(String courseName){
+//                        Course course = courseRepository.getByCourseName(courseName);
+//                        Integer courseId = course.getId();
+//                        List<Mark> marks = markRepository.getMarksByCourseId(courseId);
+//                        return marks;
+//                }}
 
 
 
