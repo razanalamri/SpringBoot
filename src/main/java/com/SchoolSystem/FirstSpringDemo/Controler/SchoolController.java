@@ -18,29 +18,35 @@ public class SchoolController {
     SchoolServices schoolServices;
 
 
-    @RequestMapping(value = "school/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<School> getAllSchools(){
 
         List<School> schools = schoolServices.getAllSchools();
         return schools;
     }
 
-    @RequestMapping(value = "school/getById", method = RequestMethod.GET)
+    @RequestMapping(value = "getById", method = RequestMethod.GET)
     public School getSchoolById(@RequestParam Integer id){
         School school=schoolServices.getSchoolById(id);
         return school;
     }
 
-    @RequestMapping(value = "school/getBySchoolName", method = RequestMethod.GET)
+    @RequestMapping(value = "getBySchoolName", method = RequestMethod.GET)
     public School getBySchoolName(@RequestParam String schoolName){
         School school=schoolServices.getBySchoolName(schoolName);
         return school;
     }
-    @RequestMapping(value = "school/getAllActive", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllActive", method = RequestMethod.GET)
       public List<School> getAllActive(){
       List <School> schools = schoolServices.getAllActive();
       return schools;
     }
+    @RequestMapping(value = "getAllInActive", method = RequestMethod.GET)
+    public List<School> getAllInActive(){
+        List <School> schools = schoolServices.getAllInActive();
+        return schools;
+    }
+
     }
 
 
