@@ -38,10 +38,6 @@ public class HelloController {
 
     }
 
-//    @RequestMapping(value = "mark/getMarksByCourseName", method = RequestMethod.GET)
-//    public List<Mark> getMarksByCourseName(@RequestParam String courseName) {
-//        return markServices.getMarksByCourseName(courseName);
-//    }
 
 
 

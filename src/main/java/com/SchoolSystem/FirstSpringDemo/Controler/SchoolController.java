@@ -2,13 +2,12 @@ package com.SchoolSystem.FirstSpringDemo.Controler;
 
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
+import com.SchoolSystem.FirstSpringDemo.RequestObjects.SchoolRequestForCreateDateUpdate;
 import com.SchoolSystem.FirstSpringDemo.Services.SchoolServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -62,9 +61,12 @@ public class SchoolController {
         return schools;
     }
 
+    @RequestMapping(value="updateCreatedDateByUserInput")
+    public void setCreatedDateByUserInput(@RequestBody SchoolRequestForCreateDateUpdate data) throws ParseException{
+        schoolServices.setCreatedDateByUserInput(data.getDate(),data.getId());
 
 
-    }
+}}
 
 
 
