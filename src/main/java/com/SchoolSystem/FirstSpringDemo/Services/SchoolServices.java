@@ -76,6 +76,12 @@ public class SchoolServices {
         return schoolList;
     }
 
+    public void deleteSchoolBySchoolName(String schoolName)throws ParseException{
+        School school= schoolRepository.getBySchoolName(schoolName);
+        school.setActive(false);
+        schoolRepository.save(school);
+
+    }
 
 
 
