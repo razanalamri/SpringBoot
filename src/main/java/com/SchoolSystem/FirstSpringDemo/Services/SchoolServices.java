@@ -61,4 +61,8 @@ public class SchoolServices {
         return school;
     }
 
+    public School getByUpdatedDate(Date updatedDate){
+        School school= schoolRepository.getByUpdatedDate(updatedDate);
+        return school;
+    }
 }

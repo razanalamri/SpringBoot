@@ -42,6 +42,9 @@ public interface SchoolRepository extends CrudRepository<School,Integer> {
     @Query(value="SELECT s from School s where s.createdDate = :createdDate")
     School getByCreatedDate(@Param("createdDate") Date createdDate);
 
+    @Query(value="SELECT s from School s where s.updatedDate = :updatedDate")
+    School getByUpdatedDate(@Param("updatedDate") Date updatedDate);
+
 }
 
 
