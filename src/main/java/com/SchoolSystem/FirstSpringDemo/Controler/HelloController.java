@@ -24,8 +24,6 @@ public class HelloController {
 
 
 
-
-
     @RequestMapping(value = "student/getStudentsBySchoolName", method = RequestMethod.GET)
     public List<Student> getStudentsBySchoolName(@RequestParam String schoolName) {
         return studentServices.getStudentsBySchoolName(schoolName);

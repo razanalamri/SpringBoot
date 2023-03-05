@@ -1,7 +1,9 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
+import com.SchoolSystem.FirstSpringDemo.Models.Student;
 import com.SchoolSystem.FirstSpringDemo.Repositry.SchoolRepository;
+import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,8 @@ import java.util.List;
 public class SchoolServices {
 
     @Autowired
-    SchoolRepository schoolRepository; //Reference of SchoolRepository interface
+    SchoolRepository schoolRepository;//Reference of SchoolRepository interface
+
 
     public List<School> getAllSchools(){
        return schoolRepository.getAllSchools();
@@ -65,4 +68,31 @@ public class SchoolServices {
         School school= schoolRepository.getByUpdatedDate(updatedDate);
         return school;
     }
+
+    public List<School> getSchoolCreatedAfterDate(String stringDate)throws ParseException{
+        DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+        Date javaDate = formatter.parse(stringDate);
+        List<School> schoolList = schoolRepository.getSchoolCreatedAfterDate(javaDate);
+        return schoolList;
+    }
+
+
+
+
+
+
+
+//    public School getByNumberOfStudents(Integer numberOfStudents){
+//        School school= schoolRepository.getByNumberOfStudents(numberOfStudents);
+//        return school;
+//    }
+
+//    public void deleteAllSchoolsCreatedAfterDate(String stringDate)throws ParseException{
+//        DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+//        Date javaDate = formatter.parse(stringDate);
+//        School school=schoolRepository.getSchoolById(id);
+//        school.setActive(false);
+//        schoolRepository.save(school);
+//    }
+
 }

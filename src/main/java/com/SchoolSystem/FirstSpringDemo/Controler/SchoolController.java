@@ -4,11 +4,13 @@ package com.SchoolSystem.FirstSpringDemo.Controler;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.RequestObjects.SchoolRequestForCreateDateUpdate;
 import com.SchoolSystem.FirstSpringDemo.Services.SchoolServices;
+import com.SchoolSystem.FirstSpringDemo.Services.StudentServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,8 @@ public class SchoolController {
     @Autowired
     SchoolServices schoolServices;
 
+    @Autowired
+    StudentServices studentServices;
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<School> getAllSchools(){
@@ -50,19 +54,19 @@ public class SchoolController {
         List <School> schools = schoolServices.getLatestRow();
         return schools;
     }
-    @RequestMapping(value = "deleteSchoolById", method = RequestMethod.GET)
+    @RequestMapping(value = "deleteSchoolById", method = RequestMethod.POST)
     public void deleteSchoolById(@RequestParam Integer id){
         schoolServices.deleteSchoolById(id);
 
     }
 
 
-    @RequestMapping(value = "deleteAll", method = RequestMethod.GET)
+    @RequestMapping(value = "deleteAll", method = RequestMethod.POST)
     public void deleteAll(){
         schoolServices.deleteAllSchools();
     }
 
-    @RequestMapping(value="updateCreatedDateByUserInput")
+    @RequestMapping(value="updateCreatedDateByUserInput", method = RequestMethod.POST)
     public void setCreatedDateByUserInput(@RequestBody SchoolRequestForCreateDateUpdate data) throws ParseException{
         schoolServices.setCreatedDateByUserInput(data.getDate(),data.getId());
 
@@ -80,9 +84,31 @@ public class SchoolController {
         return school;
     }
 
+    @RequestMapping(value="getSchoolCreatedAfterDate",method = RequestMethod.GET)
+    public List<School> getSchoolCreatedAfterDate(@RequestParam String createdDate) throws ParseException {
+        List<School> schoolList = new ArrayList<>();
+        schoolList=schoolServices.getSchoolCreatedAfterDate(createdDate);
+        return schoolList;
+
+    }
+
+//    @RequestMapping(value = "getByNumberOfStudents", method = RequestMethod.GET)
+//    public School getByNumberOfStudents(@RequestParam Integer numberOfStudents){
+//        School school=schoolServices.getByNumberOfStudents(numberOfStudents);
+//        return school;
+//    }
+
+//    @RequestMapping(value = "deleteAllSchoolsCreatedAfterDate")
+//    public void deleteAllSchoolsCreatedAfterDate(@RequestBody SchoolRequestForCreateDateUpdate data) throws ParseException{
+//        schoolServices.deleteAllSchoolsCreatedAfterDate(data.getDate());
+//
+//    }
 
 
-}
+
+    }
+
+
 
 
 
