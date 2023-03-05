@@ -7,6 +7,7 @@ import com.SchoolSystem.FirstSpringDemo.Services.SchoolServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
 
@@ -49,16 +50,16 @@ public class SchoolController {
         List <School> schools = schoolServices.getLatestRow();
         return schools;
     }
-    @RequestMapping(value = "deleteId", method = RequestMethod.GET)
-    public School deleteId(@RequestParam Integer id){
-        School school=schoolServices.deleteId(id);
-        return school;
+    @RequestMapping(value = "deleteSchoolById", method = RequestMethod.GET)
+    public void deleteSchoolById(@RequestParam Integer id){
+        schoolServices.deleteSchoolById(id);
+
     }
 
+
     @RequestMapping(value = "deleteAll", method = RequestMethod.GET)
-    public List<School> deleteAll(){
-        List<School> schools = schoolServices.deleteAllSchools();
-        return schools;
+    public void deleteAll(){
+        schoolServices.deleteAllSchools();
     }
 
     @RequestMapping(value="updateCreatedDateByUserInput")
@@ -66,7 +67,16 @@ public class SchoolController {
         schoolServices.setCreatedDateByUserInput(data.getDate(),data.getId());
 
 
-}}
+}
+    @RequestMapping(value = "getByCreatedDate", method = RequestMethod.GET)
+    public School getByCreatedDate(@RequestParam Date createdDate){
+        School school=schoolServices.getByCreatedDate(createdDate);
+        return school;
+    }
+
+
+
+}
 
 
 

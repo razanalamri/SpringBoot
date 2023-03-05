@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -28,11 +31,16 @@ public interface SchoolRepository extends CrudRepository<School,Integer> {
     List<School> getLatestRow();
 
 
-    @Query(value="UPDATE School s set s.isActive=:False where s.id = id ")
-    School deleteId(@Param("id")Integer id);
-
+    @Modifying
+    @Transactional
     @Query("UPDATE School s set s.isActive=False")
-    List<School> deleteAllSchools();
+    void deleteAllSchools();
+
+
+
+
+    @Query(value="SELECT s from School s where s.createdDate = :createdDate")
+    School getByCreatedDate(@Param("createdDate") Date createdDate);
 
 }
 

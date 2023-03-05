@@ -36,13 +36,18 @@ public class SchoolServices {
     public List<School> getAllInActive(){return schoolRepository.getAllInActive();}
     public List<School> getLatestRow(){return schoolRepository.getLatestRow();}
 
-    public School deleteId(Integer id){
-        School school= schoolRepository.deleteId(id);
-        return school;
+    public void deleteSchoolById(Integer id){
+        School school= schoolRepository.getSchoolById(id);
+        school.setActive(false);
+        schoolRepository.save(school);
     }
-    public List<School> deleteAllSchools(){
-        return schoolRepository.deleteAllSchools();
+
+
+    public void deleteAllSchools(){
+
+  schoolRepository.deleteAllSchools();
     }
+
 
     public void setCreatedDateByUserInput(String stringDate, Integer id)throws ParseException{
         DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
@@ -51,4 +56,9 @@ public class SchoolServices {
         school.setCreatedDate(javaDate);
         schoolRepository.save(school);
     }
+    public School getByCreatedDate(Date createdDate){
+        School school= schoolRepository.getByCreatedDate(createdDate);
+        return school;
+    }
+
 }
