@@ -110,4 +110,13 @@ public class SchoolServices {
         schoolRepository.saveAll(schoolList);
     }
 
+
+    public void  createSchool(String schoolName) {
+        School school=new School();
+        school.setSchoolName(schoolName);
+        school.setActive(true);
+        school.setCreatedDate(new Date());
+        schoolRepository.save(school);
+    }
+
 }

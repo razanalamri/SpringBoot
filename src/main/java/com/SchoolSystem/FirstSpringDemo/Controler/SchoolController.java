@@ -115,6 +115,12 @@ public class SchoolController {
     }
 
 
+    @RequestMapping(value = "createSchool", method = RequestMethod.POST)
+    public void createSchool(@RequestParam String schoolName) {
+        schoolServices.createSchool(schoolName);
+    }
+
+
 
 
 
