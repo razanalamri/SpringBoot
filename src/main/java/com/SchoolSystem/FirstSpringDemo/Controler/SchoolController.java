@@ -98,11 +98,12 @@ public class SchoolController {
 //        return school;
 //    }
 
-//    @RequestMapping(value = "deleteAllSchoolsCreatedAfterDate")
-//    public void deleteAllSchoolsCreatedAfterDate(@RequestBody SchoolRequestForCreateDateUpdate data) throws ParseException{
-//        schoolServices.deleteAllSchoolsCreatedAfterDate(data.getDate());
-//
-//    }
+    @RequestMapping(value = "deleteAllSchoolsCreatedAfterDate", method = RequestMethod.POST)
+    public void deleteAllSchoolsCreatedAfterDate(@RequestParam String createdDate)throws ParseException{
+        schoolServices.deleteAllSchoolsCreatedAfterDate(createdDate);
+    }
+
+
 
 
 

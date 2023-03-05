@@ -87,12 +87,12 @@ public class SchoolServices {
 //        return school;
 //    }
 
-//    public void deleteAllSchoolsCreatedAfterDate(String stringDate)throws ParseException{
-//        DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
-//        Date javaDate = formatter.parse(stringDate);
-//        School school=schoolRepository.getSchoolById(id);
-//        school.setActive(false);
-//        schoolRepository.save(school);
-//    }
+    public void deleteAllSchoolsCreatedAfterDate(String createdDate)throws ParseException{
+        DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+        Date javaDate = formatter.parse(createdDate);
+        List<School> schoolList =schoolRepository.deleteAllSchoolsCreatedAfterDate(javaDate);
+        schoolList.stream().forEach(x -> x.setActive(false));
+        schoolRepository.saveAll(schoolList);
+    }
 
 }
