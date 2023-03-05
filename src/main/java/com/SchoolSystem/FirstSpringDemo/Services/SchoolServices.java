@@ -119,4 +119,12 @@ public class SchoolServices {
         schoolRepository.save(school);
     }
 
+    public void updateSchool(Integer Id,String schoolName, Boolean isActive){
+        School school =schoolRepository.getSchoolById(Id);
+        school.setSchoolName(schoolName);
+        school.setCreatedDate(new Date());
+        school.setActive(isActive);
+        schoolRepository.save(school);
+    }
+
 }

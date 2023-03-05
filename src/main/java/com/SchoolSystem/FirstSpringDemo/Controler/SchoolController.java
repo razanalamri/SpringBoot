@@ -120,6 +120,10 @@ public class SchoolController {
         schoolServices.createSchool(schoolName);
     }
 
+    @RequestMapping(value = "updateSchool",method = RequestMethod.POST)
+    public void updateSchool(@RequestParam Integer Id,String schoolName,Boolean isActive){
+        schoolServices.updateSchool(Id,schoolName,isActive);
+    }
 
 
 
