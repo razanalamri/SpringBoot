@@ -129,14 +129,6 @@ public class SchoolController {
     }
 
 
-//    @RequestMapping(value = "getByNumberOfStudents", method = RequestMethod.GET)
-//    public School getByNumberOfStudents(@RequestParam Integer numberOfStudents){
-//        School school=schoolServices.getByNumberOfStudents(numberOfStudents);
-//        return school;
-//    }
-
-
-
 
 
     }
