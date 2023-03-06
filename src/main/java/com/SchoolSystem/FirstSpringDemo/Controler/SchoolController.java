@@ -54,6 +54,12 @@ public class SchoolController {
         List <School> schools = schoolServices.getLatestRow();
         return schools;
     }
+    @RequestMapping(value = "getLatestUpdate", method = RequestMethod.GET)
+    public List<School> getLatestUpdate(){
+        List <School> schools = schoolServices.getLatestUpdate();
+        return schools;
+    }
+
     @RequestMapping(value = "deleteSchoolById", method = RequestMethod.POST)
     public void deleteSchoolById(@RequestParam Integer id){
         schoolServices.deleteSchoolById(id);

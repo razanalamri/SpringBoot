@@ -39,6 +39,8 @@ public class SchoolServices {
     public List<School> getAllInActive(){return schoolRepository.getAllInActive();}
     public List<School> getLatestRow(){return schoolRepository.getLatestRow();}
 
+    public List<School> getLatestUpdate(){return schoolRepository.getLatestRow();}
+
     public void deleteSchoolById(Integer id){
         School school= schoolRepository.getSchoolById(id);
         school.setActive(false);

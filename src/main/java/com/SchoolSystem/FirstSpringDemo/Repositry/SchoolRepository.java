@@ -30,6 +30,9 @@ public interface SchoolRepository extends CrudRepository<School,Integer> {
     @Query(value="SELECT s from School s where s.id=(select MAX(s.id) from School s)")
     List<School> getLatestRow();
 
+    @Query(value="SELECT s from School s where s.updatedDate=(select MAX(s.updatedDate) from School s)")
+    List<School> getLatestUpdate();
+
 
     @Modifying
     @Transactional
