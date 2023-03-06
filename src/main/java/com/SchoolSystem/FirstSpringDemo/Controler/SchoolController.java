@@ -19,9 +19,6 @@ public class SchoolController {
     @Autowired
     SchoolServices schoolServices;
 
-    @Autowired
-    StudentServices studentServices;
-
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<School> getAllSchools(){
         List<School> schools = schoolServices.getAllSchools();
@@ -130,6 +127,14 @@ public class SchoolController {
     public void updateSchool(@RequestParam Integer Id,String schoolName,Boolean isActive){
         schoolServices.updateSchool(Id,schoolName,isActive);
     }
+
+
+//    @RequestMapping(value = "getByNumberOfStudents", method = RequestMethod.GET)
+//    public School getByNumberOfStudents(@RequestParam Integer numberOfStudents){
+//        School school=schoolServices.getByNumberOfStudents(numberOfStudents);
+//        return school;
+//    }
+
 
 
 

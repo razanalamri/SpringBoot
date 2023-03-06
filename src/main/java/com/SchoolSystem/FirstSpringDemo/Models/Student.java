@@ -14,6 +14,14 @@ public class Student extends BaseEntity  {
     String phoneNumber;
     String email;
 
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
     @ManyToOne
     @JoinColumn(name = "school_id", referencedColumnName = "id")
     School school;
@@ -59,4 +67,8 @@ public class Student extends BaseEntity  {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+
+
 }

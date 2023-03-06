@@ -129,4 +129,9 @@ public class SchoolServices {
         schoolRepository.save(school);
     }
 
+//    public School getByNumberOfStudents(Integer numberOfStudents){
+//        School school= schoolRepository.getByNumberOfStudents(numberOfStudents);
+//        return school;
+//    }
+
 }

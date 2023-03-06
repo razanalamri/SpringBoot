@@ -54,7 +54,7 @@ public interface SchoolRepository extends CrudRepository<School,Integer> {
 
 
 
-//    @Query(value="SELECT COUNT(school_id) from Student where numberOfStudents=:numberOfStudents ")
+//    @Query(value="SELECT s from School s where COUNT(id.Student)=:numberOfStudents ")
 //    School getByNumberOfStudents(@Param("numberOfStudents") Integer numberOfStudents);
 
 
