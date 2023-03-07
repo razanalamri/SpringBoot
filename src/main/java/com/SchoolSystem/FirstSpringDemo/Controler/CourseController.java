@@ -91,6 +91,11 @@ public class CourseController {
         return courses;
 
     }
+    @RequestMapping(value = "getAllActiveCoursesForAStudent", method = RequestMethod.GET)
+    public List<Course> getAllActiveCoursesForAStudent(@RequestParam Integer id) throws ParseException{
+        List<Course> courses = courseServices.getCoursesByStudentId(id);
+        return courses;
+    }
 
     @RequestMapping(value = "deleteAllCoursesCreatedAfterDate", method = RequestMethod.POST)
     public void deleteAllCoursesCreatedAfterDate(@RequestParam String createdDate)throws ParseException{
@@ -132,6 +137,11 @@ public class CourseController {
         return Courses;
     }
 
+    @RequestMapping(value = "getCoursesByStudentId", method = RequestMethod.GET)
+    public List<Course> getCoursesByStudentId(@RequestParam Integer id){
+        List<Course> courses=courseServices.getCoursesByStudentId(id);
+        return courses;
+    }
 
 
 }

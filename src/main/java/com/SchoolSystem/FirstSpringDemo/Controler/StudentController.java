@@ -35,6 +35,12 @@ public class StudentController {
         return student;
     }
 
+    @RequestMapping(value = "getStudentsBySchoolId", method = RequestMethod.GET)
+    public List<Student> getStudentsBySchoolId(@RequestParam Integer id){
+        List<Student> students=studentServices.getStudentsBySchoolId(id);
+        return students;
+    }
+
     @RequestMapping(value = "getByAge", method = RequestMethod.GET)
     public Student getByAge(@RequestParam int age){
         Student student=studentServices.getByAge(age);
@@ -122,6 +128,11 @@ public class StudentController {
     @RequestMapping(value = "createStudent", method = RequestMethod.POST)
     public void createStudent(@RequestParam String studentName, String email,String phoneNumber, int age, int id ) {
         studentServices.createStudent(studentName,email,phoneNumber,age,id);
+    }
+
+    @RequestMapping(value = "updateStudent",method = RequestMethod.POST)
+    public void updateStudent(@RequestParam Integer Id,String studentName,Boolean isActive){
+        studentServices.updateStudent(Id,studentName,isActive);
     }
 
     @RequestMapping(value = "deleteStudentByAge", method = RequestMethod.POST)

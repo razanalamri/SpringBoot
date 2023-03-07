@@ -63,8 +63,8 @@ public interface CourseRepository extends CrudRepository<Course,Integer> {
     @Query(value = "SELECT s from Course s WHERE s.student.id = :id ")
     List<Course> deleteCourseByStudentId(@Param("id") Integer id);
 
-
-
+    @Query(value = "select s from Course s where s.student.id = :id and (s.isActive=1)")
+    List<Course> getAllActiveCoursesForAStudent(@Param("id") Integer id);
 
 
 

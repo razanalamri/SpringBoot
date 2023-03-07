@@ -36,6 +36,8 @@ public class SchoolController {
         School school=schoolServices.getBySchoolName(schoolName);
         return school;
     }
+
+
     @RequestMapping(value = "getAllActive", method = RequestMethod.GET)
       public List<School> getAllActive(){
       List <School> schools = schoolServices.getAllActive();
@@ -102,8 +104,14 @@ public class SchoolController {
     @RequestMapping(value = "deleteSchoolBySchoolName", method = RequestMethod.POST)
     public void deleteSchoolBySchoolName(@RequestParam String schoolName)throws ParseException{
         schoolServices.deleteSchoolBySchoolName(schoolName);
-
     }
+
+    @RequestMapping(value = "getSchoolByNumberOfStudent", method = RequestMethod.POST)
+    public List<School> getSchoolByNumberOfStudent(@RequestParam Integer numberOfStudent) {
+        List<School> schools = new ArrayList<>();
+        return schools;
+    }
+
 
     @RequestMapping(value = "deleteSchoolByCreatedDate", method = RequestMethod.POST)
     public void deleteSchoolByCreatedDate(@RequestParam String createdDate)throws ParseException{
@@ -116,7 +124,6 @@ public class SchoolController {
         schoolServices.deleteSchoolByUpdatedDate(updatedDate);
 
     }
-
 
     @RequestMapping(value = "createSchool", method = RequestMethod.POST)
     public void createSchool(@RequestParam String schoolName) {

@@ -42,8 +42,12 @@ public class CourseServices {
     public List<Course> getCoursesByStudentName(String studentName){
 
        Student student =studentRepository.getByStudentName(studentName);
-        Integer studentId = student.getId();
-        List<Course> courses = courseRepository.getCoursesByStudentId(studentId);
+        Integer id = student.getId();
+        List<Course> courses = courseRepository.getCoursesByStudentId(id);
+        return courses;
+    }
+    public List<Course> getCoursesByStudentId(Integer id) {
+        List<Course> courses = courseRepository.getCoursesByStudentId(id);
         return courses;
     }
 
@@ -149,6 +153,11 @@ public class CourseServices {
         courseRepository.saveAll(course);
 
     }
+    public List<Course> getAllActiveCoursesForAStudent(Integer id)throws ParseException {
+        List<Course> courses = courseRepository.getAllActiveCoursesForAStudent(id);
+        return courses;
+    }
+
 
 
 

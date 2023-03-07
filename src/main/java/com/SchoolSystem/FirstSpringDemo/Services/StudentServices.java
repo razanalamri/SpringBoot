@@ -29,9 +29,15 @@ public class StudentServices {
         return student;
     }
 
+
         public Student getStudentById(Integer id){
         Student student= studentRepository.getStudentById(id);
         return student;
+    }
+
+    public List<Student> getStudentsBySchoolId(Integer id) {
+        List<Student> students = studentRepository.getStudentsBySchoolId(id);
+        return students;
     }
 
 
@@ -135,6 +141,14 @@ public class StudentServices {
         student.setCreatedDate(new Date());
         student.setAge(age);
         student.setSchool(schoolServices.getSchoolById(id));
+        studentRepository.save(student);
+    }
+
+    public void updateStudent(Integer Id,String studentName, Boolean isActive){
+       Student student =studentRepository.getStudentById(Id);
+        student.setStudentName(studentName);
+        student.setCreatedDate(new Date());
+        student.setActive(isActive);
         studentRepository.save(student);
     }
 
