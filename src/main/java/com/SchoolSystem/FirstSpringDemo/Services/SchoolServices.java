@@ -1,7 +1,6 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
-import com.SchoolSystem.FirstSpringDemo.Models.Student;
 import com.SchoolSystem.FirstSpringDemo.Repositry.SchoolRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -142,23 +140,9 @@ public class SchoolServices {
         schoolRepository.save(school);
     }
 
-    public List<School> getSchoolByNumberOfStudent(Integer numberOfStudent){
-        List<Integer> typesOfSchoolIdsInStudent = studentRepository.getDistinctSchoolIdsFromStudent();
-        Integer schoolIdThatUserWants = 0;
-
-        for (Integer idOfSchool: typesOfSchoolIdsInStudent) {
-            Integer count = studentRepository.getCountOfStudentsBySchoolId(idOfSchool);
-
-            if(numberOfStudent == count) {
-                schoolIdThatUserWants = idOfSchool;
-                break;
-            }
-        }
-        List<School> schools = schoolRepository.getSchoolById(schoolIdThatUserWants);
-        return schools;
 
 
-    }
+
 }
 
 
