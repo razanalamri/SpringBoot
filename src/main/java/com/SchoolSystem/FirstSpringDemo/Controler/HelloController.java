@@ -8,6 +8,7 @@ import com.SchoolSystem.FirstSpringDemo.Services.CourseServices;
 import com.SchoolSystem.FirstSpringDemo.Services.MarkServices;
 import com.SchoolSystem.FirstSpringDemo.Services.SchoolServices;
 import com.SchoolSystem.FirstSpringDemo.Services.StudentServices;
+import com.SchoolSystem.FirstSpringDemo.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,9 @@ public class HelloController {
 
     @Autowired
     CourseServices courseServices;
+
+    @Autowired
+    SlackClient slackClient;
 
 
 
@@ -34,6 +38,11 @@ public class HelloController {
     public List<Course> getCoursesByStudentName(@RequestParam String studentName) {
         return courseServices.getCoursesByStudentName(studentName);
 
+    }
+
+    @GetMapping(value="slackMessage")
+    public void message(@RequestParam String text) {
+        slackClient.sendMessage(text);
     }
 
 
