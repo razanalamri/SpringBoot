@@ -1,16 +1,15 @@
 package com.SchoolSystem.FirstSpringDemo.Models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Student extends BaseEntity  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
     @Column(name="Name_of_Student")
     String studentName;
-    int age;
+    Integer age;
     String phoneNumber;
     String email;
 
@@ -28,11 +27,11 @@ public class Student extends BaseEntity  {
 
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,11 +43,11 @@ public class Student extends BaseEntity  {
         this.studentName = studentName;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

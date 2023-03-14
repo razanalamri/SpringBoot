@@ -5,6 +5,7 @@ import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
 import com.SchoolSystem.FirstSpringDemo.RequestObjects.SchoolRequestForCreateDateUpdate;
 import com.SchoolSystem.FirstSpringDemo.Services.CourseServices;
+import com.SchoolSystem.FirstSpringDemo.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,43 +20,91 @@ public class CourseController {
     @Autowired
     CourseServices courseServices;
 
+    @Autowired
+    SlackClient slackClient;
+
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<Course> getAllCourses(){
 
         List<Course> courses = courseServices.getAllCourses();
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
     }
 
     @RequestMapping(value = "getById", method = RequestMethod.GET)
     public Course getCourseById(@RequestParam Integer id){
         Course course=courseServices.getCourseById(id);
+        slackClient.sendMessage(course.getId().toString());
+        slackClient.sendMessage(course.getCourseName());
+        slackClient.sendMessage(course.getCreatedDate().toString());
+        slackClient.sendMessage(course.getUpdatedDate().toString());
+        slackClient.sendMessage(course.getActive().toString());
         return course;
     }
 
     @RequestMapping(value = "getByCourseName", method = RequestMethod.GET)
     public Course getByCourseName(@RequestParam String courseName){
         Course course=courseServices.getByCourseName(courseName);
+        slackClient.sendMessage(course.getId().toString());
+        slackClient.sendMessage(course.getCourseName());
+        slackClient.sendMessage(course.getCreatedDate().toString());
+        slackClient.sendMessage(course.getUpdatedDate().toString());
+        slackClient.sendMessage(course.getActive().toString());
         return course;
     }
 
     @RequestMapping(value = "getAllActive", method = RequestMethod.GET)
     public List<Course> getAllActive(){
         List <Course> courses = courseServices.getAllActive();
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
     }
     @RequestMapping(value = "getAllInActive", method = RequestMethod.GET)
     public List<Course> getAllInActive(){
         List <Course> courses = courseServices.getAllInActive();
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
     }
     @RequestMapping(value = "getLatestRow", method = RequestMethod.GET)
     public List<Course> getLatestRow(){
         List <Course> courses = courseServices.getLatestRow();
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
     }
     @RequestMapping(value = "getLatestUpdate", method = RequestMethod.GET)
     public List<Course> getLatestUpdate(){
         List <Course> courses = courseServices.getLatestUpdate();
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
     }
 
@@ -75,12 +124,22 @@ public class CourseController {
     @RequestMapping(value = "getByCreatedDate", method = RequestMethod.GET)
     public Course getByCreatedDate(@RequestParam Date createdDate){
         Course course=courseServices.getByCreatedDate(createdDate);
+        slackClient.sendMessage(course.getId().toString());
+        slackClient.sendMessage(course.getCourseName());
+        slackClient.sendMessage(course.getCreatedDate().toString());
+        slackClient.sendMessage(course.getUpdatedDate().toString());
+        slackClient.sendMessage(course.getActive().toString());
         return course;
     }
 
     @RequestMapping(value = "getByUpdatedDate", method = RequestMethod.GET)
     public Course getByUpdatedDate(@RequestParam Date updatedDate){
         Course course=courseServices.getByUpdatedDate(updatedDate);
+        slackClient.sendMessage(course.getId().toString());
+        slackClient.sendMessage(course.getCourseName());
+        slackClient.sendMessage(course.getCreatedDate().toString());
+        slackClient.sendMessage(course.getUpdatedDate().toString());
+        slackClient.sendMessage(course.getActive().toString());
         return course;
     }
 
@@ -88,12 +147,26 @@ public class CourseController {
     public List<Course> getCourseCreatedAfterDate(@RequestParam String createdDate) throws ParseException {
         List<Course> courses = new ArrayList<>();
         courses=courseServices.getCourseCreatedAfterDate(createdDate);
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
 
     }
     @RequestMapping(value = "getAllActiveCoursesForAStudent", method = RequestMethod.GET)
     public List<Course> getAllActiveCoursesForAStudent(@RequestParam Integer id) throws ParseException{
         List<Course> courses = courseServices.getCoursesByStudentId(id);
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
     }
 
@@ -140,6 +213,13 @@ public class CourseController {
     @RequestMapping(value = "getCoursesByStudentId", method = RequestMethod.GET)
     public List<Course> getCoursesByStudentId(@RequestParam Integer id){
         List<Course> courses=courseServices.getCoursesByStudentId(id);
+        for(Course courseData : courses) {
+            slackClient.sendMessage(courseData.getId().toString());
+            slackClient.sendMessage(courseData.getCourseName());
+            slackClient.sendMessage(courseData.getCreatedDate().toString());
+            slackClient.sendMessage(courseData.getUpdatedDate().toString());
+            slackClient.sendMessage(courseData.getActive().toString());
+        }
         return courses;
     }
 
