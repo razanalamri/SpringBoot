@@ -26,11 +26,7 @@ public class SchoolController {
     public List<School> getAllSchools(){
         List<School> schools = schoolServices.getAllSchools();
         for(School schoolData : schools) {
-            slackClient.sendMessage(schoolData.getId().toString());
-            slackClient.sendMessage(schoolData.getSchoolName());
-            slackClient.sendMessage(schoolData.getCreatedDate().toString());
-            slackClient.sendMessage(schoolData.getUpdatedDate().toString());
-            slackClient.sendMessage(schoolData.getActive().toString());
+            slackClient.sendMessage(schoolServices.formatSchoolListForSlack(schools).toString());
 
         }
         return schools;
@@ -39,10 +35,7 @@ public class SchoolController {
     @RequestMapping(value = "getById", method = RequestMethod.GET)
     public School getSchoolById(@RequestParam Integer id){
         School school=schoolServices.getSchoolById(id);
-        slackClient.sendMessage(school.getSchoolName());
-        slackClient.sendMessage(school.getCreatedDate().toString());
-        slackClient.sendMessage(school.getUpdatedDate().toString());
-        slackClient.sendMessage(school.getActive().toString());
+        slackClient.sendMessage(schoolServices.formatSchoolObjectForSlack(school).toString());
         return school;
 
     }
