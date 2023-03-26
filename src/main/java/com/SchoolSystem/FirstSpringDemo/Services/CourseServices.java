@@ -157,12 +157,24 @@ public class CourseServices {
         List<Course> courses = courseRepository.getAllActiveCoursesForAStudent(id);
         return courses;
     }
+    public StringBuilder formatCourseObjectForSlack(Course course){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Id: *" + course.getId()+ "*\n");
+        sb.append("Course Name: *" + course.getCourseName() +"*\n");
+        sb.append("Updated date :*"+course.getUpdatedDate()+"*\n");
+        sb.append("Created date:*"+course.getCreatedDate()+"*\n");
+        sb.append("Is Active: *" + course.getActive() + "*\n");
+        return sb;
+    }
 
-
-
-
-
-
+    public StringBuilder formatCourseListForSlack(List<Course> courses){
+        StringBuilder mainStringBuilder = new StringBuilder();
+        for (Course courseFromListOfCourses: courses) {
+            mainStringBuilder.append(formatCourseObjectForSlack(courseFromListOfCourses));
+            mainStringBuilder.append("\n");
+        }
+        return mainStringBuilder;
+    }
 
 }
 

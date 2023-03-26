@@ -147,6 +147,26 @@ public class MarkServices {
 
         }
 
+        public StringBuilder formatMarkObjectForSlack(Mark mark){
+                StringBuilder sb = new StringBuilder();
+                sb.append("Id: *" + mark.getId()+ "*\n");
+                sb.append("Grade: *" + mark.getGrade()+"*\n");
+                sb.append("Obtained Marks: *" + mark.getObtainedMarks() +"*\n");
+                sb.append("Updated date :*"+mark.getUpdatedDate()+"*\n");
+                sb.append("Created date:*"+mark.getCreatedDate()+"*\n");
+                sb.append("Is Active: *" + mark.getActive() + "*\n");
+                return sb;
+        }
+
+        public StringBuilder formatMarkListForSlack(List<Mark> marks){
+                StringBuilder mainStringBuilder = new StringBuilder();
+                for (Mark markFromListOfMarks: marks) {
+                        mainStringBuilder.append(formatMarkObjectForSlack(markFromListOfMarks));
+                        mainStringBuilder.append("\n");
+                }
+                return mainStringBuilder;
+        }
+
 }
 
 

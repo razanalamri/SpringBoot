@@ -1,5 +1,6 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
+import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
 import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,6 +156,28 @@ public class StudentServices {
         student.stream().forEach(x -> x.setActive(false));
         studentRepository.saveAll(student);
 
+    }
+
+    public StringBuilder formatStudentObjectForSlack(Student student){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Id: *" + student.getId()+ "*\n");
+        sb.append("Student Name: *" + student.getStudentName()+ "*\n");
+        sb.append("Age: *" + student.getAge()+ "*\n");
+        sb.append("Phone Number: *" + student.getPhoneNumber()+ "*\n");
+        sb.append("Email : *" + student.getEmail()+ "*\n");
+        sb.append("Updated date :*"+student.getUpdatedDate()+"*\n");
+        sb.append("Created date:*"+student.getCreatedDate()+"*\n");
+        sb.append("Is Active: *" + student.getActive() + "*\n");
+        return sb;
+    }
+
+    public StringBuilder formatStudentListForSlack(List<Student> students){
+        StringBuilder mainStringBuilder = new StringBuilder();
+        for (Student studentFromListOfStudents: students) {
+            mainStringBuilder.append(formatStudentObjectForSlack(studentFromListOfStudents));
+            mainStringBuilder.append("\n");
+        }
+        return mainStringBuilder;
     }
 
 

@@ -30,12 +30,7 @@ public class MarkController {
 
         List<Mark> marks = markServices.getAllMarks();
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -43,12 +38,7 @@ public class MarkController {
     @RequestMapping(value = "getById", method = RequestMethod.GET)
     public Mark getMarkById(@RequestParam Integer id){
         Mark mark=markServices.getMarkById(id);
-        slackClient.sendMessage(mark.getId().toString());
-        slackClient.sendMessage(mark.getObtainedMarks().toString());
-        slackClient.sendMessage(mark.getGrade().toString());
-        slackClient.sendMessage(mark.getCreatedDate().toString());
-        slackClient.sendMessage(mark.getUpdatedDate().toString());
-        slackClient.sendMessage(mark.getActive().toString());
+        slackClient.sendMessage(markServices.formatMarkObjectForSlack(mark).toString());
         return mark;
 
     }
@@ -57,12 +47,7 @@ public class MarkController {
     public List<Mark> getAllActive(){
         List <Mark> marks = markServices.getAllActive();
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -70,12 +55,7 @@ public class MarkController {
     public List<Mark> getAllInActive(){
         List <Mark> marks = markServices.getAllInActive();
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -83,12 +63,7 @@ public class MarkController {
     @RequestMapping(value = "getAllByGrade", method = RequestMethod.GET)
     public Mark getAllByGrade(@RequestParam String grade){
         Mark mark=markServices.getAllByGrade(grade);
-        slackClient.sendMessage(mark.getId().toString());
-        slackClient.sendMessage(mark.getObtainedMarks().toString());
-        slackClient.sendMessage(mark.getGrade().toString());
-        slackClient.sendMessage(mark.getCreatedDate().toString());
-        slackClient.sendMessage(mark.getUpdatedDate().toString());
-        slackClient.sendMessage(mark.getActive().toString());
+        slackClient.sendMessage(markServices.formatMarkObjectForSlack(mark).toString());
         return mark;
 
     }
@@ -98,12 +73,7 @@ public class MarkController {
     public List<Mark> getLatestRow(){
         List <Mark> marks = markServices.getLatestRow();
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -111,12 +81,7 @@ public class MarkController {
     public List<Mark> getLatestUpdate(){
         List <Mark> marks = markServices.getLatestUpdate();
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -139,12 +104,7 @@ public class MarkController {
     @RequestMapping(value = "getByUpdatedDate", method = RequestMethod.GET)
     public Mark getByUpdatedDate(@RequestParam Date updatedDate){
         Mark mark=markServices.getByUpdatedDate(updatedDate);
-        slackClient.sendMessage(mark.getId().toString());
-        slackClient.sendMessage(mark.getObtainedMarks().toString());
-        slackClient.sendMessage(mark.getGrade().toString());
-        slackClient.sendMessage(mark.getCreatedDate().toString());
-        slackClient.sendMessage(mark.getUpdatedDate().toString());
-        slackClient.sendMessage(mark.getActive().toString());
+        slackClient.sendMessage(markServices.formatMarkObjectForSlack(mark).toString());
         return mark;
     }
 
@@ -153,12 +113,7 @@ public class MarkController {
         List<Mark> marks = new ArrayList<>();
         marks=markServices.getMarkCreatedAfterDate(createdDate);
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
 
@@ -169,12 +124,7 @@ public class MarkController {
         List<Mark> marks = new ArrayList<>();
         marks=markServices.getByObtainedMarksMoreThan(obtainedMarks);
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -184,12 +134,7 @@ public class MarkController {
         List<Mark> marks = new ArrayList<>();
         marks=markServices.getByObtainedMarksLessThan(obtainedMarks);
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -227,12 +172,7 @@ public class MarkController {
     public List<Mark> getMarksByCourseId(@RequestParam Integer id){
         List<Mark> marks=markServices.getMarksByCourseId(id);
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
     }
@@ -242,12 +182,7 @@ public class MarkController {
         List<Mark> marks = new ArrayList<>();
         markServices.deleteMarksByCourseId(id);
         for(Mark markData : marks) {
-            slackClient.sendMessage(markData.getId().toString());
-            slackClient.sendMessage(markData.getObtainedMarks().toString());
-            slackClient.sendMessage(markData.getGrade().toString());
-            slackClient.sendMessage(markData.getCreatedDate().toString());
-            slackClient.sendMessage(markData.getUpdatedDate().toString());
-            slackClient.sendMessage(markData.getActive().toString());
+            slackClient.sendMessage(markServices.formatMarkListForSlack(marks).toString());
         }
         return marks;
 

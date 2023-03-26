@@ -24,14 +24,7 @@ public class StudentController {
     public List<Student> getAllStudents(){
         List<Student> students = studentServices.getAllStudents();
         for(Student studentData : students) {
-            slackClient.sendMessage(studentData.getId().toString());
-            slackClient.sendMessage(studentData.getStudentName());
-            slackClient.sendMessage(studentData.getAge().toString());
-            slackClient.sendMessage(studentData.getPhoneNumber());
-            slackClient.sendMessage(studentData.getEmail());
-            slackClient.sendMessage(studentData.getCreatedDate().toString());
-            slackClient.sendMessage(studentData.getUpdatedDate().toString());
-            slackClient.sendMessage(studentData.getActive().toString());
+            slackClient.sendMessage(studentServices.formatStudentListForSlack(students).toString());
         }
         return students;
     }
@@ -39,28 +32,15 @@ public class StudentController {
     @RequestMapping(value = "getById", method = RequestMethod.GET)
     public Student getStudentById(@RequestParam Integer id){
         Student student=studentServices.getStudentById(id);
-        slackClient.sendMessage(student.getId().toString());
-        slackClient.sendMessage(student.getStudentName());
-        slackClient.sendMessage(student.getAge().toString());
-        slackClient.sendMessage(student.getPhoneNumber());
-        slackClient.sendMessage(student.getEmail());
-        slackClient.sendMessage(student.getCreatedDate().toString());
-        slackClient.sendMessage(student.getUpdatedDate().toString());
-        slackClient.sendMessage(student.getActive().toString());
+        slackClient.sendMessage(studentServices.formatStudentObjectForSlack(student).toString());
         return student;
     }
 
     @RequestMapping(value = "getByStudentName", method = RequestMethod.GET)
     public Student getByStudentName(@RequestParam String studentName){
         Student student=studentServices.getByStudentName(studentName);
-        slackClient.sendMessage(student.getId().toString());
-        slackClient.sendMessage(student.getStudentName());
-        slackClient.sendMessage(student.getAge().toString());
-        slackClient.sendMessage(student.getPhoneNumber());
-        slackClient.sendMessage(student.getEmail());
-        slackClient.sendMessage(student.getCreatedDate().toString());
-        slackClient.sendMessage(student.getUpdatedDate().toString());
-        slackClient.sendMessage(student.getActive().toString());
+        slackClient.sendMessage(studentServices.formatStudentObjectForSlack(student).toString());
+
         return student;
     }
 
@@ -68,14 +48,7 @@ public class StudentController {
     public List<Student> getStudentsBySchoolId(@RequestParam Integer id){
         List<Student> students=studentServices.getStudentsBySchoolId(id);
         for(Student studentData : students) {
-            slackClient.sendMessage(studentData.getId().toString());
-            slackClient.sendMessage(studentData.getStudentName());
-            slackClient.sendMessage(studentData.getAge().toString());
-            slackClient.sendMessage(studentData.getPhoneNumber());
-            slackClient.sendMessage(studentData.getEmail());
-            slackClient.sendMessage(studentData.getCreatedDate().toString());
-            slackClient.sendMessage(studentData.getUpdatedDate().toString());
-            slackClient.sendMessage(studentData.getActive().toString());
+            slackClient.sendMessage(studentServices.formatStudentListForSlack(students).toString());
         }
         return students;
     }
@@ -83,14 +56,8 @@ public class StudentController {
     @RequestMapping(value = "getByAge", method = RequestMethod.GET)
     public Student getByAge(@RequestParam int age){
         Student student=studentServices.getByAge(age);
-        slackClient.sendMessage(student.getId().toString());
-        slackClient.sendMessage(student.getStudentName());
-        slackClient.sendMessage(student.getAge().toString());
-        slackClient.sendMessage(student.getPhoneNumber());
-        slackClient.sendMessage(student.getEmail());
-        slackClient.sendMessage(student.getCreatedDate().toString());
-        slackClient.sendMessage(student.getUpdatedDate().toString());
-        slackClient.sendMessage(student.getActive().toString());
+        slackClient.sendMessage(studentServices.formatStudentObjectForSlack(student).toString());
+
         return student;
     }
 
@@ -99,14 +66,7 @@ public class StudentController {
     public List<Student> getAllActive(){
         List <Student> students = studentServices.getAllActive();
         for(Student studentData : students) {
-            slackClient.sendMessage(studentData.getId().toString());
-            slackClient.sendMessage(studentData.getStudentName());
-            slackClient.sendMessage(studentData.getAge().toString());
-            slackClient.sendMessage(studentData.getPhoneNumber());
-            slackClient.sendMessage(studentData.getEmail());
-            slackClient.sendMessage(studentData.getCreatedDate().toString());
-            slackClient.sendMessage(studentData.getUpdatedDate().toString());
-            slackClient.sendMessage(studentData.getActive().toString());
+            slackClient.sendMessage(studentServices.formatStudentListForSlack(students).toString());
         }
         return students;
     }
@@ -114,14 +74,7 @@ public class StudentController {
     public List<Student> getAllInActive(){
         List <Student> students = studentServices.getAllInActive();
         for(Student studentData : students) {
-            slackClient.sendMessage(studentData.getId().toString());
-            slackClient.sendMessage(studentData.getStudentName());
-            slackClient.sendMessage(studentData.getAge().toString());
-            slackClient.sendMessage(studentData.getPhoneNumber());
-            slackClient.sendMessage(studentData.getEmail());
-            slackClient.sendMessage(studentData.getCreatedDate().toString());
-            slackClient.sendMessage(studentData.getUpdatedDate().toString());
-            slackClient.sendMessage(studentData.getActive().toString());
+            slackClient.sendMessage(studentServices.formatStudentListForSlack(students).toString());
         }
         return students;
     }
@@ -129,14 +82,7 @@ public class StudentController {
     public List<Student> getLatestRow(){
         List <Student> students = studentServices.getLatestRow();
         for(Student studentData : students) {
-            slackClient.sendMessage(studentData.getId().toString());
-            slackClient.sendMessage(studentData.getStudentName());
-            slackClient.sendMessage(studentData.getAge().toString());
-            slackClient.sendMessage(studentData.getPhoneNumber());
-            slackClient.sendMessage(studentData.getEmail());
-            slackClient.sendMessage(studentData.getCreatedDate().toString());
-            slackClient.sendMessage(studentData.getUpdatedDate().toString());
-            slackClient.sendMessage(studentData.getActive().toString());
+            slackClient.sendMessage(studentServices.formatStudentListForSlack(students).toString());
         }
         return students;
     }
@@ -144,14 +90,7 @@ public class StudentController {
     public List<Student> getLatestUpdate(){
         List <Student> students = studentServices.getLatestUpdate();
         for(Student studentData : students) {
-            slackClient.sendMessage(studentData.getId().toString());
-            slackClient.sendMessage(studentData.getStudentName());
-            slackClient.sendMessage(studentData.getAge().toString());
-            slackClient.sendMessage(studentData.getPhoneNumber());
-            slackClient.sendMessage(studentData.getEmail());
-            slackClient.sendMessage(studentData.getCreatedDate().toString());
-            slackClient.sendMessage(studentData.getUpdatedDate().toString());
-            slackClient.sendMessage(studentData.getActive().toString());
+            slackClient.sendMessage(studentServices.formatStudentListForSlack(students).toString());
         }
         return students;
     }
@@ -172,28 +111,16 @@ public class StudentController {
     @RequestMapping(value = "getByCreatedDate", method = RequestMethod.GET)
     public Student getByCreatedDate(@RequestParam Date createdDate){
         Student student=studentServices.getByCreatedDate(createdDate);
-        slackClient.sendMessage(student.getId().toString());
-        slackClient.sendMessage(student.getStudentName());
-        slackClient.sendMessage(student.getAge().toString());
-        slackClient.sendMessage(student.getPhoneNumber());
-        slackClient.sendMessage(student.getEmail());
-        slackClient.sendMessage(student.getCreatedDate().toString());
-        slackClient.sendMessage(student.getUpdatedDate().toString());
-        slackClient.sendMessage(student.getActive().toString());
+        slackClient.sendMessage(studentServices.formatStudentObjectForSlack(student).toString());
+
         return student;
     }
 
     @RequestMapping(value = "getByUpdatedDate", method = RequestMethod.GET)
     public Student getByUpdatedDate(@RequestParam Date updatedDate){
         Student student=studentServices.getByUpdatedDate(updatedDate);
-        slackClient.sendMessage(student.getId().toString());
-        slackClient.sendMessage(student.getStudentName());
-        slackClient.sendMessage(student.getAge().toString());
-        slackClient.sendMessage(student.getPhoneNumber());
-        slackClient.sendMessage(student.getEmail());
-        slackClient.sendMessage(student.getCreatedDate().toString());
-        slackClient.sendMessage(student.getUpdatedDate().toString());
-        slackClient.sendMessage(student.getActive().toString());
+        slackClient.sendMessage(studentServices.formatStudentObjectForSlack(student).toString());
+
         return student;
     }
 
@@ -202,14 +129,7 @@ public class StudentController {
         List<Student> students = new ArrayList<>();
         students=studentServices.getStudentCreatedAfterDate(createdDate);
         for(Student studentData : students) {
-            slackClient.sendMessage(studentData.getId().toString());
-            slackClient.sendMessage(studentData.getStudentName());
-            slackClient.sendMessage(studentData.getAge().toString());
-            slackClient.sendMessage(studentData.getPhoneNumber());
-            slackClient.sendMessage(studentData.getEmail());
-            slackClient.sendMessage(studentData.getCreatedDate().toString());
-            slackClient.sendMessage(studentData.getUpdatedDate().toString());
-            slackClient.sendMessage(studentData.getActive().toString());
+            slackClient.sendMessage(studentServices.formatStudentListForSlack(students).toString());
         }
         return students;
 
