@@ -82,9 +82,9 @@ public class SchoolController {
     }
 
     @RequestMapping(value = "deleteSchoolById", method = RequestMethod.POST)
-    public void deleteSchoolById(@RequestParam Integer id){
+    public School deleteSchoolById(@RequestParam Integer id){
         schoolServices.deleteSchoolById(id);
-
+        return null;
     }
 
 

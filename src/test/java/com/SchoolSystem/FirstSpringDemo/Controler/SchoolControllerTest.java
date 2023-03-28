@@ -1,15 +1,22 @@
 package com.SchoolSystem.FirstSpringDemo.Controler;
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
+import com.SchoolSystem.FirstSpringDemo.Services.SchoolServices;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.sql.Date;
-
+import java.util.List;
 import static java.sql.Date.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 @SpringBootTest
 class SchoolControllerTest {
 
@@ -17,6 +24,13 @@ class SchoolControllerTest {
     SchoolController schoolController;
 
 
+
+
+    @Test
+    void getAllSchools() throws Exception {
+        List<School> allSchools = schoolController.getAllSchools();
+        assertNotNull(allSchools);
+    }
 
     @Test
     void getSchoolByIdWhenId1() throws Exception {
@@ -50,8 +64,6 @@ class SchoolControllerTest {
         String schoolName=schoolToTest.getSchoolName();
         assertEquals("TechnoPark ",schoolName);
     }
-
-
 
     @Test
     void getBySchoolNameMuscat() throws Exception {
@@ -120,59 +132,46 @@ class SchoolControllerTest {
     }
 
     @Test
-    void getByUpdatedDate1() throws Exception{
-        School schoolToTest;
-        schoolToTest = schoolController.getByUpdatedDate(valueOf("2023-03-05"));
-        String schoolName=schoolToTest.getSchoolName();
-        assertEquals("Muscat ",schoolName);
-    }
-
-    void getByUpdatedDate2()throws Exception {
-        School schoolToTest;
-        schoolToTest = schoolController.getByUpdatedDate(valueOf("2023-03-05"));
-        String schoolName=schoolToTest.getSchoolName();
-        assertEquals("Seeb ",schoolName);
-    }
-
-    void getByUpdatedDate3() throws Exception{
-        School schoolToTest;
-        schoolToTest = schoolController.getByUpdatedDate(valueOf("2020-12-22"));
+    void getByUpdatedDateFirstSchool() throws Exception{
+       School schoolToTest = schoolController.getByUpdatedDate(valueOf("2020-12-22"));
         String schoolName=schoolToTest.getSchoolName();
         assertEquals("NTI ",schoolName);
     }
 
-    void getByUpdatedDate4()throws Exception {
+
+@Test
+    void getByUpdatedDateSecondSchool()throws Exception {
         School schoolToTest;
         schoolToTest = schoolController.getByUpdatedDate(valueOf("2023-01-01"));
         String schoolName=schoolToTest.getSchoolName();
         assertEquals("TechnoPark ",schoolName);
     }
 
+
     @Test
-    void getSchoolCreatedAfterDate() {
+    void getAllActive() throws Exception{
+            List<School> activeSchools = schoolController.getAllActive();
+            assertNotNull(activeSchools);
+
     }
 
     @Test
-    void deleteAllSchoolsCreatedAfterDate() {
+    void getAllInActive() throws Exception{
+        List<School> InActiveSchools = schoolController.getAllInActive();
+        assertNotNull(InActiveSchools);
+
     }
 
     @Test
-    void deleteSchoolBySchoolName() {
+    void getLatestRow()throws Exception {
+        List<School> latestRow = schoolController.getLatestRow();
+        assertNotNull(latestRow);
     }
 
     @Test
-    void deleteSchoolByCreatedDate() {
+    void getLatestUpdate() throws Exception {
+        List<School> latestUpdate = schoolController.getLatestUpdate();
+        assertNotNull(latestUpdate);
     }
-
-    @Test
-    void deleteSchoolByUpdatedDate() {
-    }
-
-    @Test
-    void createSchool() {
-    }
-
-    @Test
-    void updateSchool() {
-    }
+    
 }
