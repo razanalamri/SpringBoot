@@ -173,5 +173,5 @@ class SchoolControllerTest {
         List<School> latestUpdate = schoolController.getLatestUpdate();
         assertNotNull(latestUpdate);
     }
-    
+
 }

@@ -3,11 +3,14 @@ package com.SchoolSystem.FirstSpringDemo.Controler;
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.RequestObjects.SchoolRequestForCreateDateUpdate;
+import com.SchoolSystem.FirstSpringDemo.Services.ReportServices;
 import com.SchoolSystem.FirstSpringDemo.Services.SchoolServices;
 import com.SchoolSystem.FirstSpringDemo.Slack.SlackClient;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -22,6 +25,8 @@ public class SchoolController {
     @Autowired
     SlackClient slackClient;
 
+    @Autowired
+    ReportServices reportServices;
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<School> getAllSchools(){
         List<School> schools = schoolServices.getAllSchools();
@@ -154,6 +159,11 @@ public class SchoolController {
     @RequestMapping(value = "updateSchool",method = RequestMethod.POST)
     public void updateSchool(@RequestParam Integer Id,String schoolName,Boolean isActive){
         schoolServices.updateSchool(Id,schoolName,isActive);
+    }
+
+    @RequestMapping(value = "report")
+    public String generateReport() throws JRException, FileNotFoundException{
+        return reportServices.generateReport();
     }
 
 
