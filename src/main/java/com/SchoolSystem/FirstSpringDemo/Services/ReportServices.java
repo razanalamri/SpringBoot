@@ -1,8 +1,13 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
+import com.SchoolSystem.FirstSpringDemo.DTO.CourseMarkObjectForJasper;
 import com.SchoolSystem.FirstSpringDemo.DTO.SchoolStudentObjectForJasper;
+import com.SchoolSystem.FirstSpringDemo.Models.Course;
+import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
+import com.SchoolSystem.FirstSpringDemo.Repositry.CourseRepository;
+import com.SchoolSystem.FirstSpringDemo.Repositry.MarkRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.SchoolRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
 import net.sf.jasperreports.engine.*;
@@ -24,6 +29,8 @@ public class ReportServices {
     SchoolRepository schoolRepository;
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    MarkRepository markRepository;
 
     public String generateReport() throws FileNotFoundException, JRException {
         List<School> schoolList = schoolRepository.getAllSchools();
@@ -61,4 +68,29 @@ public class ReportServices {
 
 
     }
+
+    public String generateReportForCourse() throws FileNotFoundException, JRException {
+        List<Mark> markList = markRepository.getAllMarks();
+        List<CourseMarkObjectForJasper> CourseMarkObjectForJasperList = new ArrayList<>();
+        for (Mark mark : markList) {
+            String courseName =mark.getCourse().getCourseName();
+            Integer obtainedMarks = mark.getObtainedMarks();
+            String grade = mark.getGrade();
+            CourseMarkObjectForJasper courseMarkObjectForJasper = new CourseMarkObjectForJasper(courseName, obtainedMarks, grade);
+            CourseMarkObjectForJasperList.add(courseMarkObjectForJasper);
+        }
+
+        File file = ResourceUtils.getFile("classpath:CourseMarkReport.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        var dataSource = new JRBeanCollectionDataSource(CourseMarkObjectForJasperList);
+        Map<String, Object> paramters = new HashMap<>();
+        paramters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\Courses.pdf");
+        return "Report generated : " + pathToReports + "\\Courses.pdf";
+
+
+    }
+
+
 }
