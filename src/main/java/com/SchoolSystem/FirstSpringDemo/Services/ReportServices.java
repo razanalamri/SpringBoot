@@ -1,7 +1,10 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
+import com.SchoolSystem.FirstSpringDemo.DTO.SchoolStudentObjectForJasper;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
+import com.SchoolSystem.FirstSpringDemo.Models.Student;
 import com.SchoolSystem.FirstSpringDemo.Repositry.SchoolRepository;
+import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +13,18 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Service
 public class ReportServices {
     public static final String pathToReports = "C:\\Users\\user012\\Downloads\\Reports";
-@Autowired
+    @Autowired
     SchoolRepository schoolRepository;
+    @Autowired
+    StudentRepository studentRepository;
+
     public String generateReport() throws FileNotFoundException, JRException {
         List<School> schoolList = schoolRepository.getAllSchools();
 
@@ -26,8 +33,32 @@ public class ReportServices {
         var dataSource = new JRBeanCollectionDataSource(schoolList);
         Map<String, Object> paramters = new HashMap<>();
         paramters.put("CreatedBy", "Razan");
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,paramters , dataSource);
-        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports+"\\schools.pdf");
-        return "Report generated : " + pathToReports+"\\schools.pdf";
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\schools.pdf");
+        return "Report generated : " + pathToReports + "\\schools.pdf";
 
-}}
+    }
+
+    public String generateReportForStudent() throws FileNotFoundException, JRException {
+        List<Student> studentList = studentRepository.getAllStudent();
+        List<SchoolStudentObjectForJasper> studentObjectForJasperList = new ArrayList<>();
+        for (Student student : studentList) {
+            String studentName = student.getStudentName();
+            String schoolName = student.getSchool().getSchoolName();
+            Integer studentId = student.getId();
+            SchoolStudentObjectForJasper schoolStudentObjectForJasper = new SchoolStudentObjectForJasper(studentName, schoolName, studentId);
+            studentObjectForJasperList.add(schoolStudentObjectForJasper);
+        }
+
+        File file = ResourceUtils.getFile("classpath:SchoolStudentReport.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        var dataSource = new JRBeanCollectionDataSource(studentObjectForJasperList);
+        Map<String, Object> paramters = new HashMap<>();
+        paramters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\Students.pdf");
+        return "Report generated : " + pathToReports + "\\Students.pdf";
+
+
+    }
+}
