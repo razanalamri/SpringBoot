@@ -32,11 +32,7 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
     List<Student> getStudentsBySchoolId(@Param("id") Integer id);
 
 
-    @Query(value="SELECT s from Student s where s.isActive =True")
-    List<Student> getAllActive();
 
-    @Query(value="SELECT s from Student s where s.isActive =False")
-    List<Student> getAllInActive();
 
     @Query(value="SELECT s from Student s where s.id=(select MAX(s.id) from Student s)")
     List<Student> getLatestRow();
@@ -54,6 +50,12 @@ public interface StudentRepository extends CrudRepository<Student,Integer> {
 
     @Query(value="SELECT s from Student s where s.updatedDate = :updatedDate")
     Student getByUpdatedDate(@Param("updatedDate") Date updatedDate);
+
+    @Query(value="SELECT s from Student s where s.isActive =True")
+    List<Student> getAllActive();
+
+    @Query(value="SELECT s from Student s where s.isActive =False")
+    List<Student> getAllInActive();
 
     @Query(value="SELECT s from Student s where s.createdDate>createdDate")
     List<Student> getStudentCreatedAfterDate(@Param("createdDate") Date createdDate);
