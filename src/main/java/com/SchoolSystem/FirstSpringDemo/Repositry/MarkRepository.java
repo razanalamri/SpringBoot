@@ -69,5 +69,9 @@ public interface MarkRepository extends CrudRepository<Mark,Integer> {
     @Query(value = "SELECT s from Mark s WHERE s.course.id = :id ")
     List<Mark> deleteMarksByCourseId(@Param("id") Integer id);
 
+
+    @Query(value = "SELECT count(m) from Mark m WHERE m.course.courseName = :courseName")
+    Integer getNumberOfMarksByCourseName(@Param("courseName") String courseName);
+
 }
 

@@ -2,11 +2,9 @@ package com.SchoolSystem.FirstSpringDemo.Services;
 
 import com.SchoolSystem.FirstSpringDemo.DTO.CourseMarkObjectForJasper;
 import com.SchoolSystem.FirstSpringDemo.DTO.SchoolStudentObjectForJasper;
-import com.SchoolSystem.FirstSpringDemo.Models.Course;
 import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
-import com.SchoolSystem.FirstSpringDemo.Repositry.CourseRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.MarkRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.SchoolRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
@@ -69,28 +67,77 @@ public class ReportServices {
 
     }
 
-    public String generateReportForCourse() throws FileNotFoundException, JRException {
-        List<Mark> markList = markRepository.getAllMarks();
-        List<CourseMarkObjectForJasper> CourseMarkObjectForJasperList = new ArrayList<>();
-        for (Mark mark : markList) {
-            String courseName =mark.getCourse().getCourseName();
-            Integer obtainedMarks = mark.getObtainedMarks();
-            String grade = mark.getGrade();
-            CourseMarkObjectForJasper courseMarkObjectForJasper = new CourseMarkObjectForJasper(courseName, obtainedMarks, grade);
-            CourseMarkObjectForJasperList.add(courseMarkObjectForJasper);
+//    public String generateReportForCourse() throws FileNotFoundException, JRException {
+//        List<Mark> markList = markRepository.getAllMarks();
+//        List<CourseMarkObjectForJasper> CourseMarkObjectForJasperList = new ArrayList<>();
+//        for (Mark mark : markList) {
+//            String courseName =mark.getCourse().getCourseName();
+//            Integer obtainedMarks = mark.getObtainedMarks();
+//            String grade = mark.getGrade();
+//            CourseMarkObjectForJasper courseMarkObjectForJasper = new CourseMarkObjectForJasper(courseName, obtainedMarks, grade);
+//            CourseMarkObjectForJasperList.add(courseMarkObjectForJasper);
+//        }
+//
+//        File file = ResourceUtils.getFile("classpath:CourseMarkReport.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        var dataSource = new JRBeanCollectionDataSource(CourseMarkObjectForJasperList);
+//        Map<String, Object> paramters = new HashMap<>();
+//        paramters.put("CreatedBy", "Razan");
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramters, dataSource);
+//        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\Courses.pdf");
+//        return "Report generated : " + pathToReports + "\\Courses.pdf";
+//
+//
+//    }
+
+
+
+    public String averageMarksReport() throws FileNotFoundException, JRException {
+        List<Mark> marksList = markRepository.getAllMarks();
+        List<CourseMarkObjectForJasper> courseMarkObject = new ArrayList<>();
+        Map<String, Integer> courseMapWithMark = new HashMap<>();
+
+        for (Mark m : marksList) {
+
+            String courseName = m.getCourse().getCourseName();
+
+            if (!courseMapWithMark.containsKey(courseName)) {
+                courseMapWithMark.put(courseName, m.getObtainedMarks());
+            } else {
+                Integer previousCourseMark = courseMapWithMark.get(courseName);
+                previousCourseMark = previousCourseMark + m.getObtainedMarks();
+                courseMapWithMark.put(courseName, previousCourseMark);
+
+            }
         }
 
-        File file = ResourceUtils.getFile("classpath:CourseMarkReport.jrxml");
+        for (String keyCourseName : courseMapWithMark.keySet()) {
+            Integer numberOfMarkByCourse = markRepository.getNumberOfMarksByCourseName(keyCourseName);
+            Integer marks = courseMapWithMark.get(keyCourseName);
+            Integer average = marks / numberOfMarkByCourse;
+            CourseMarkObjectForJasper markObject = new CourseMarkObjectForJasper();
+            markObject.setAvgMark(average);
+            markObject.setCourseName(keyCourseName);
+            courseMarkObject.add(markObject);
+        }
+        File file = ResourceUtils.getFile("classpath:AverageMark.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        var dataSource = new JRBeanCollectionDataSource(CourseMarkObjectForJasperList);
-        Map<String, Object> paramters = new HashMap<>();
-        paramters.put("CreatedBy", "Razan");
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramters, dataSource);
-        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\Courses.pdf");
-        return "Report generated : " + pathToReports + "\\Courses.pdf";
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(courseMarkObject);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);  //fillReport combine it all
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\AverageMarkReport.pdf");
+        return "Report generated : " + pathToReports + "\\AverageMarkReport.pdf";
+    }
+
 
 
     }
 
 
-}
+
+
+
+
+
+

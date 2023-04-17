@@ -180,9 +180,14 @@ public class CourseController {
         return courses;
     }
 
-    @RequestMapping(value = "report")
-    public String generateReportForCourse() throws JRException, FileNotFoundException {
-        return reportServices.generateReportForCourse();
+//    @RequestMapping(value = "report")
+//    public String generateReportForCourse() throws JRException, FileNotFoundException {
+//        return reportServices.generateReportForCourse();
+//    }
+
+    @RequestMapping(value = "CoursesAndAverageMarksReport")
+    public String generateCoursesAndAverageMarksReport() throws FileNotFoundException, JRException {
+        return reportServices.averageMarksReport();
     }
 
 
