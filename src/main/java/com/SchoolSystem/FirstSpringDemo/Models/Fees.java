@@ -2,6 +2,7 @@ package com.SchoolSystem.FirstSpringDemo.Models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Fees extends BaseEntity{
@@ -48,5 +49,25 @@ public class Fees extends BaseEntity{
     @OneToOne
     @JoinColumn(name ="student_id",referencedColumnName = "id")
     Student student;
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    private String recipient;
+
+    private String subject;
 
 }

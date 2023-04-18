@@ -3,6 +3,7 @@ package com.SchoolSystem.FirstSpringDemo.Repositry;
 import com.SchoolSystem.FirstSpringDemo.Models.Course;
 import com.SchoolSystem.FirstSpringDemo.Models.Fees;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
+import com.SchoolSystem.FirstSpringDemo.mailing.models.EmailDetails;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -40,4 +41,6 @@ public interface FeesRepository {
 
     @Query(value="SELECT s from Fees s where s.isActive =False")
     List<Fees> getAllInActive();
+
+    String sendSimpleMail(Fees fees);
 }
