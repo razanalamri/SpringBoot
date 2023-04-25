@@ -2,7 +2,6 @@ package com.SchoolSystem.FirstSpringDemo.Controler;
 
 
 import com.SchoolSystem.FirstSpringDemo.Models.School;
-import com.SchoolSystem.FirstSpringDemo.RequestObjects.SchoolRequestForCreateDateUpdate;
 import com.SchoolSystem.FirstSpringDemo.Services.ReportServices;
 import com.SchoolSystem.FirstSpringDemo.Services.SchoolServices;
 import com.SchoolSystem.FirstSpringDemo.Slack.SlackClient;
@@ -98,12 +97,7 @@ public class SchoolController {
         schoolServices.deleteAllSchools();
     }
 
-    @RequestMapping(value="updateCreatedDateByUserInput", method = RequestMethod.POST)
-    public void setCreatedDateByUserInput(@RequestBody SchoolRequestForCreateDateUpdate data) throws ParseException{
-        schoolServices.setCreatedDateByUserInput(data.getDate(),data.getId());
 
-
-}
     @RequestMapping(value = "getByCreatedDate", method = RequestMethod.GET)
     public School getByCreatedDate(@RequestParam Date createdDate){
         School school=schoolServices.getByCreatedDate(createdDate);
@@ -166,9 +160,15 @@ public class SchoolController {
         return reportServices.generateReport();
     }
 
-
-
+    @RequestMapping(value = "TopPerformingStudentInEachSchool")
+    public String TopPerformingStudentInEachSchool() throws JRException, FileNotFoundException {
+        return reportServices.TopPerformingStudentInEachSchool();
     }
+
+
+
+
+}
 
 
 

@@ -2,6 +2,7 @@ package com.SchoolSystem.FirstSpringDemo.Services;
 
 import com.SchoolSystem.FirstSpringDemo.DTO.CourseMarkObjectForJasper;
 import com.SchoolSystem.FirstSpringDemo.DTO.SchoolStudentObjectForJasper;
+import com.SchoolSystem.FirstSpringDemo.DTO.TopPerformingStudent;
 import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
@@ -129,6 +130,38 @@ public class ReportServices {
         JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\AverageMarkReport.pdf");
         return "Report generated : " + pathToReports + "\\AverageMarkReport.pdf";
     }
+
+
+    public String TopPerformingStudentInEachSchool() throws FileNotFoundException, JRException {
+        List<School> schoolList = schoolRepository.getAllSchools();
+        List<TopPerformingStudent> topPreformingStudentDTOSList = new ArrayList<>();
+
+        for (School school : schoolList) {
+            List<Student> studentList = studentRepository.getStudentsBySchoolId(school.getId());
+            Integer TopMark = 0;
+            Student studentWithHighestMarks = new Student();
+            for (Student student : studentList) {
+                Integer studentId = student.getId();
+                Integer studentTotalMark = markRepository.getSumOfMarksByStudentId(studentId);
+                if (studentTotalMark != null && studentTotalMark > TopMark) {
+                    TopMark = studentTotalMark;
+                    studentWithHighestMarks = student;
+                }
+            }
+            topPreformingStudentDTOSList.add(new TopPerformingStudent(studentWithHighestMarks.getStudentName(), school.getSchoolName()));
+        }
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(topPreformingStudentDTOSList);
+        File file = ResourceUtils.getFile("classpath:TopPerformingStudent.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);  //fillReport combine it all
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\TopPerformingReport.pdf");
+        return "Report generated : " + pathToReports + "\\TopPerformingReport.pdf";
+
+    }
+
+
 
 
 

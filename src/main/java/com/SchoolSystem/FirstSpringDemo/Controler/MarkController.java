@@ -5,7 +5,6 @@ import com.SchoolSystem.FirstSpringDemo.Models.Course;
 import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
-import com.SchoolSystem.FirstSpringDemo.RequestObjects.SchoolRequestForCreateDateUpdate;
 import com.SchoolSystem.FirstSpringDemo.Services.MarkServices;
 import com.SchoolSystem.FirstSpringDemo.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
