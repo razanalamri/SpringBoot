@@ -201,4 +201,10 @@ public class StudentController {
         return reportServices.TotalNumberOfStudentsInEachSchool();
     }
 
+    @RequestMapping(value = "NewStudent")
+    public String generateNewStudentWithHighCourseScore(Integer courseHighestMark) throws Exception {
+        return reportServices.generateNewStudentWithHighCourseScore(courseHighestMark);
+    }
+
+
 }

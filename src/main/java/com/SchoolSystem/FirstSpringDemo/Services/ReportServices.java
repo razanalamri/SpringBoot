@@ -260,13 +260,34 @@ public class ReportServices {
 
 
 
+    public String generateNewStudentWithHighCourseScore(Integer courseHighestMark) throws Exception {
+        List<School> schoolList = schoolRepository.getAllSchools();
+        List<StudentWithHighCourseScore> studentWithHighCourseScores = new ArrayList<>();
+        for (School school : schoolList) {
+            String schoolName = school.getSchoolName();
+            Integer schoolId = school.getId();
+            Integer averageOfAllStudentsMarks = markRepository.getAvgOfMarksBySchoolId(schoolId);
+            studentWithHighCourseScores.add(new StudentWithHighCourseScore(schoolName, averageOfAllStudentsMarks));
+        }
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(studentWithHighCourseScores);
+        File file = ResourceUtils.getFile("classpath:StudentWithHighCourseScore.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\TopPerformingCourse.pdf");
+        return "Report generated : " + pathToReports + "\\TopPerformingCourse.pdf";
+    }
+    }
 
 
 
 
 
 
-}
+
+
+
 
 
 
