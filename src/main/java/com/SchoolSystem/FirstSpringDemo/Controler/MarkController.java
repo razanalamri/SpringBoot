@@ -6,6 +6,7 @@ import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
 import com.SchoolSystem.FirstSpringDemo.Services.MarkServices;
+import com.SchoolSystem.FirstSpringDemo.Services.ReportServices;
 import com.SchoolSystem.FirstSpringDemo.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,9 @@ public class MarkController {
 
     @Autowired
     SlackClient slackClient;
+
+    @Autowired
+    ReportServices reportServices;
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public List<Mark> getAllMarks(){
@@ -185,6 +189,12 @@ public class MarkController {
         }
         return marks;
 
+    }
+
+
+    @RequestMapping(value = "NumberOfMarks")
+    public String NumberOfMarks() throws Exception {
+        return reportServices.NumberOfMarks();
     }
 
 

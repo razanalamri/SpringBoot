@@ -4,6 +4,7 @@ import com.SchoolSystem.FirstSpringDemo.DTO.*;
 import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
+import com.SchoolSystem.FirstSpringDemo.Repositry.CourseRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.MarkRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.SchoolRepository;
 import com.SchoolSystem.FirstSpringDemo.Repositry.StudentRepository;
@@ -28,6 +29,9 @@ public class ReportServices {
     StudentRepository studentRepository;
     @Autowired
     MarkRepository markRepository;
+
+    @Autowired
+    CourseRepository courseRepository;
 
     public String generateReport() throws FileNotFoundException, JRException {
         List<School> schoolList = schoolRepository.getAllSchools();
@@ -200,6 +204,28 @@ public class ReportServices {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\NumberOfStudents.pdf");
         return "Report generated : " + pathToReports + "\\NumberOfStudents.pdf";
+    }
+
+
+
+    public String NumberOfMarks() throws Exception {
+        List<String> coursesNames = courseRepository.getAllCoursesNames();
+        List<String> listOfUniqueGrades = markRepository.getDistinctGrades();
+        List<NumberOfMarks> courseWithGradesDTOS = new ArrayList<>();
+        for (String courseName : coursesNames) {
+            for (String grade : listOfUniqueGrades) {
+                Integer countOfMarksByGradeAndCourseName = markRepository.getCountOfMarksByGradeAndCourseName(grade, courseName);
+                courseWithGradesDTOS.add(new NumberOfMarks(courseName,grade,countOfMarksByGradeAndCourseName));
+            }
+        }
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(courseWithGradesDTOS);
+        File file = ResourceUtils.getFile("classpath:CountOfMark.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\CountOfMarks.pdf");
+        return "Report generated : " + pathToReports + "\\CountOfMarks.pdf";
     }
 
 
