@@ -89,5 +89,9 @@ public interface MarkRepository extends CrudRepository<Mark,Integer> {
     List<String> getDistinctGrades();
 
 
+    @Query(value = " select avg(m.obtainedMarks) from Mark m where m.course.id = :courseId ")
+    Integer averageMarkForCourse(@Param("courseId") Integer courseId);
+
+
 }
 

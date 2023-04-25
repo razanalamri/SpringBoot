@@ -1,6 +1,7 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
 import com.SchoolSystem.FirstSpringDemo.DTO.*;
+import com.SchoolSystem.FirstSpringDemo.Models.Course;
 import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
@@ -219,7 +220,7 @@ public class ReportServices {
             }
         }
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(courseWithGradesDTOS);
-        File file = ResourceUtils.getFile("classpath:CountOfMark.jrxml");
+        File file = ResourceUtils.getFile("classpath:CountOfMarks.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("CreatedBy", "Razan");
@@ -227,6 +228,36 @@ public class ReportServices {
         JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\CountOfMarks.pdf");
         return "Report generated : " + pathToReports + "\\CountOfMarks.pdf";
     }
+
+    public String PerformanceCoursesInEachSchool() throws Exception {
+        List<School> schoolList = schoolRepository.getAllSchools();
+        Map<School,Course> schoolCourseMap = new HashMap<>();
+        List<PerformingCourse> topPerformingCourseDTOS = new ArrayList<>();
+        for (School school : schoolList) {
+            Integer schoolId = school.getId();
+            List<Course> courseList = courseRepository.getCourseBySchoolId(schoolId);
+            Integer highestAverageMarkForCourses = 0;
+            Course courseWithHighestMark = new Course();
+            for (Course course : courseList) {
+                Integer courseId = course.getId();
+                Integer averageMarkForCourse = markRepository.averageMarkForCourse(courseId);
+                if (averageMarkForCourse != null && averageMarkForCourse > highestAverageMarkForCourses) {
+                    highestAverageMarkForCourses = averageMarkForCourse;
+                    courseWithHighestMark = course;
+                }
+                topPerformingCourseDTOS.add(new PerformingCourse(school.getSchoolName(), courseWithHighestMark.getCourseName()));
+            }
+        }
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(topPerformingCourseDTOS);
+        File file = ResourceUtils.getFile("classpath:TopPerformingCourses.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\PerformingCourse.pdf");
+        return "Report generated : " + pathToReports + "\\PerformingCourse.pdf";
+    }
+
 
 
 

@@ -198,4 +198,10 @@ public class MarkController {
     }
 
 
+    @RequestMapping(value = "generateTopPerformanceCourses")
+    public String PerformanceCoursesInEachSchool() throws Exception {
+        return reportServices.PerformanceCoursesInEachSchool();
+    }
+
+
 }
