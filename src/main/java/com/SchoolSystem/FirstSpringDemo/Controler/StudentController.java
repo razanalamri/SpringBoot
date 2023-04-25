@@ -196,4 +196,9 @@ public class StudentController {
         return reportServices.OverAllPerformance();
     }
 
+    @RequestMapping(value = "TotalNumberOfStudentsInEachSchool")
+    public String TotalNumberOfStudentsInEachSchool() throws Exception {
+        return reportServices.TotalNumberOfStudentsInEachSchool();
+    }
+
 }

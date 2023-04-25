@@ -1,9 +1,6 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
-import com.SchoolSystem.FirstSpringDemo.DTO.CourseMarkObjectForJasper;
-import com.SchoolSystem.FirstSpringDemo.DTO.OverallPerformance;
-import com.SchoolSystem.FirstSpringDemo.DTO.SchoolStudentObjectForJasper;
-import com.SchoolSystem.FirstSpringDemo.DTO.TopPerformingStudent;
+import com.SchoolSystem.FirstSpringDemo.DTO.*;
 import com.SchoolSystem.FirstSpringDemo.Models.Mark;
 import com.SchoolSystem.FirstSpringDemo.Models.School;
 import com.SchoolSystem.FirstSpringDemo.Models.Student;
@@ -184,7 +181,35 @@ public class ReportServices {
         return "Report generated : " + pathToReports + "\\OverAll.pdf";
 
     }
+
+    public String TotalNumberOfStudentsInEachSchool() throws Exception {
+        List<School> schoolList = schoolRepository.getAllSchools();
+        List<NumberOfStudent> countOfStudent = new ArrayList<>();
+        for (School school : schoolList) {
+            Integer schoolId = school.getId();
+            String schoolName = school.getSchoolName();
+            Integer countOfStudents = studentRepository.getCountOfStudentsBySchoolId(schoolId);
+            NumberOfStudent countOfStudentWithSchoolDTO = new NumberOfStudent(schoolName, countOfStudents);
+            countOfStudent.add(countOfStudentWithSchoolDTO);
+        }
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(countOfStudent);
+        File file = ResourceUtils.getFile("classpath:NumberOfStudents.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\NumberOfStudents.pdf");
+        return "Report generated : " + pathToReports + "\\NumberOfStudents.pdf";
     }
+
+
+
+
+
+
+
+
+}
 
 
 
