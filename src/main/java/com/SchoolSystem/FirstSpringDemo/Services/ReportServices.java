@@ -150,12 +150,13 @@ public class ReportServices {
             }
             topPreformingStudentDTOSList.add(new TopPerformingStudent(studentWithHighestMarks.getStudentName(), school.getSchoolName()));
         }
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(topPreformingStudentDTOSList);
+
         File file = ResourceUtils.getFile("classpath:TopPerformingStudent.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(topPreformingStudentDTOSList);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("CreatedBy", "Razan");
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);  //fillReport combine it all
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\TopPerformingReport.pdf");
         return "Report generated : " + pathToReports + "\\TopPerformingReport.pdf";
 
