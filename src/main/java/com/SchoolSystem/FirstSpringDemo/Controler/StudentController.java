@@ -191,4 +191,9 @@ public class StudentController {
         return reportServices.generateReportForStudent();
     }
 
+    @RequestMapping(value = "OverAllPerformance")
+    public String OverAllPerformance() throws Exception {
+        return reportServices.OverAllPerformance();
+    }
+
 }

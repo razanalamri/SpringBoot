@@ -1,6 +1,7 @@
 package com.SchoolSystem.FirstSpringDemo.Services;
 
 import com.SchoolSystem.FirstSpringDemo.DTO.CourseMarkObjectForJasper;
+import com.SchoolSystem.FirstSpringDemo.DTO.OverallPerformance;
 import com.SchoolSystem.FirstSpringDemo.DTO.SchoolStudentObjectForJasper;
 import com.SchoolSystem.FirstSpringDemo.DTO.TopPerformingStudent;
 import com.SchoolSystem.FirstSpringDemo.Models.Mark;
@@ -163,10 +164,33 @@ public class ReportServices {
     }
 
 
-
-
+    public String OverAllPerformance() throws Exception {
+        List<Student> studentList = studentRepository.getAllStudent();
+        List<OverallPerformance> studentMarks = new ArrayList<>();
+        for (Student student : studentList) {
+            String studentName = student.getStudentName();
+            String studentEmail = student.getEmail();
+            Integer avgOfMarksByStudentId = markRepository.getAvgOfMarksByStudentId(student.getId());
+            OverallPerformance studentDto = new OverallPerformance(studentName,studentEmail, avgOfMarksByStudentId);
+            studentMarks.add(studentDto);
+        }
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(studentMarks);
+        File file = ResourceUtils.getFile("classpath:OverAll.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("CreatedBy", "Razan");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathToReports + "\\OverAll.pdf");
+        return "Report generated : " + pathToReports + "\\OverAll.pdf";
 
     }
+    }
+
+
+
+
+
+
 
 
 
